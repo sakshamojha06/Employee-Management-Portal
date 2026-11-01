@@ -1,0 +1,29 @@
+# Build output
+[Bb]in/
+[Oo]bj/
+
+# Visual Studio and VS Code
+.vs/
+*.user
+*.userosscache
+*.suo
+*.sln.docstates
+
+# Test and coverage output
+[Tt]est[Rr]esult*/
+[Bb]enchmark[Oo]utput/
+coverage/
+
+# NuGet and local tooling
+packages/
+.nuget/
+*.nupkg
+*.snupkg
+
+# Local ASP.NET development files and secrets
+appsettings.*.local.json
+secrets.json
+
+# OS files
+.DS_Store
+Thumbs.db
