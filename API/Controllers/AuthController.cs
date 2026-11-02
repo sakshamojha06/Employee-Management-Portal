@@ -22,15 +22,41 @@ public class AuthController : ControllerBase
         {
             await _authService.RegisterAsync(request);
 
-            return Ok(new { message = "User registered successfully." });
+            return Ok(new
+            {
+                message = "Registration successful."
+            });
         }
         catch (Exception ex)
         {
-            if(ex.Message == "Email is already registered.")
+            if (ex.Message == "Email is already registered.")
             {
-                return Conflict(new { message = ex.Message });
+                return Conflict(new
+                {
+                    message = ex.Message
+                });
             }
-            return StatusCode(500, new { message = "Something went wrong. "});
+
+            return StatusCode(500, new
+            {
+                message = "Something went wrong."
+            });
         }
+    }
+
+    [HttpPost("login")]
+    public async Task<IActionResult> Login(LoginRequest request)
+    {
+        var response = await _authService.LoginAsync(request);
+
+        if (response == null)
+        {
+            return Unauthorized(new
+            {
+                message = "Invalid email or password."
+            });
+        }
+
+        return Ok(response);
     }
 }
