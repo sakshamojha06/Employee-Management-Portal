@@ -1,5 +1,6 @@
 using System.Text;
 using API.Models;
+using API.Repositories;
 using API.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -65,6 +66,8 @@ builder.Services.AddSwaggerGen(options =>
         [new OpenApiSecuritySchemeReference("Bearer", document)] = []
     });
 });
+
+builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 
 
 builder.Services.AddDbContext<AppDbContext>(options =>
