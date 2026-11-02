@@ -1,5 +1,6 @@
 using API.DTOs;
 using API.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers;
@@ -58,5 +59,21 @@ public class AuthController : ControllerBase
         }
 
         return Ok(response);
+    }
+
+    [HttpGet("profile")]
+    [Authorize]
+    public IActionResult Profile()
+    {
+        return Ok(new
+        {
+            message = "You are authenticated!",
+            userId = User.FindFirst(
+                System.Security.Claims.ClaimTypes.NameIdentifier
+            )?.Value,
+            role = User.FindFirst(
+                System.Security.Claims.ClaimTypes.Role
+            )?.Value
+        });
     }
 }
