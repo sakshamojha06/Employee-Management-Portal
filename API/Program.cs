@@ -1,4 +1,5 @@
 using System.Text;
+using API.Helpers;
 using API.Models;
 using API.Repositories;
 using API.Services;
@@ -78,6 +79,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 );
 
 var app = builder.Build();
+
+await AdminSeeder.SeedAdminAsync(app.Services);
 
 if(app.Environment.IsDevelopment())
 {
