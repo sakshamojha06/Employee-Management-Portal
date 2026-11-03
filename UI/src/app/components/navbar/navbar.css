@@ -1,0 +1,11 @@
+.navbar {
+  min-height: 65px;
+}
+
+.navbar-brand {
+  font-size: 21px;
+}
+
+button {
+  border-radius: 6px;
+}
