@@ -9,7 +9,7 @@ export class EmployeeService {
 
   private http = inject(HttpClient);
 
-  private apiUrl = 'https://localhost:7000/api/employee';
+  private apiUrl = 'https://localhost:5295/api/employee';
 
   getAllEmployees(): Observable<any> {
     return this.http.get(this.apiUrl);
