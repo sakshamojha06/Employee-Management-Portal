@@ -1,1 +1,60 @@
-<p>edit-employee works!</p>
+<div class="container mt-4">
+  <div class="card shadow-sm">
+
+    <div class="card-header">
+      <h4 class="mb-0">Edit Employee</h4>
+    </div>
+
+    <div class="card-body">
+      <form [formGroup]="employeeForm" (ngSubmit)="onSubmit()">
+
+        <div class="mb-3">
+          <label class="form-label">Employee Name</label>
+
+          <input
+            type="text"
+            class="form-control"
+            formControlName="name"
+            placeholder="Enter employee name"
+          />
+
+          @if (employeeForm.get('name')?.touched && employeeForm.get('name')?.invalid) {
+            <small class="text-danger">
+              Name is required (maximum 100 characters).
+            </small>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Bio</label>
+
+          <textarea
+            class="form-control"
+            rows="4"
+            formControlName="bio"
+            placeholder="Enter employee bio"
+          ></textarea>
+
+          @if (employeeForm.get('bio')?.touched && employeeForm.get('bio')?.invalid) {
+            <small class="text-danger">
+              Bio is required (maximum 500 characters).
+            </small>
+          }
+        </div>
+
+        <button type="submit" class="btn btn-primary">
+          Update Employee
+        </button>
+
+        <button
+          type="button"
+          class="btn btn-secondary ms-2"
+          (click)="cancel()"
+        >
+          Cancel
+        </button>
+
+      </form>
+    </div>
+  </div>
+</div>
