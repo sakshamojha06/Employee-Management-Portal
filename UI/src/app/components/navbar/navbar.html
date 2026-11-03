@@ -8,6 +8,12 @@
       Welcome, {{ user?.fullName }}
     </span>
 
+    <a routerLink="/add-employee"
+    class="btn btn-outline-info btn-sm">
+      <i class="bi bi-person-plus me-1"></i>
+      Add Employee
+    </a>
+
     <button class="btn btn-outline-light btn-sm" (click)="logout()">
       Logout
     </button>
