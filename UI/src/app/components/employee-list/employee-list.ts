@@ -3,6 +3,7 @@ import { RouterLink } from '@angular/router';
 import { Employee, EmployeeService } from '../../services/employee';
 import { AuthService } from '../../services/auth';
 import { Navbar } from '../navbar/navbar';
+import { NotificationService } from '../../services/notification';
 
 @Component({
   selector: 'app-employee-list',
@@ -16,10 +17,13 @@ export class EmployeeList implements OnInit {
   private employeeService = inject(EmployeeService);
   private authService = inject(AuthService);
   private changeDetectorRef = inject(ChangeDetectorRef);
+  private notificationService = inject(NotificationService);
 
   employees: Employee[] = [];
   isAdmin = false;
   errorMessage = '';
+  showDeleteConfirmation = false;
+  employeeToDelete?: number;
 
   ngOnInit(): void {
     this.isAdmin = this.authService.getRole() === 'Admin';
@@ -39,12 +43,26 @@ export class EmployeeList implements OnInit {
   }
 
   deleteEmployee(id: number): void {
-    if (!confirm('Are you sure you want to delete this employee?')) {
+    this.employeeToDelete = id;
+    this.showDeleteConfirmation = true;
+  }
+
+  cancelDelete(): void {
+    this.showDeleteConfirmation = false;
+    this.employeeToDelete = undefined;
+  }
+
+  confirmDelete(): void {
+    if (this.employeeToDelete === undefined) {
       return;
     }
 
-    this.employeeService.deleteEmployee(id).subscribe({
+    const employeeId = this.employeeToDelete;
+    this.cancelDelete();
+
+    this.employeeService.deleteEmployee(employeeId).subscribe({
       next: () => {
+        this.notificationService.show('Employee deleted successfully!', 'success');
         this.loadEmployees();
       },
       error: () => {

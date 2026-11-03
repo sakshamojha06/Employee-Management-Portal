@@ -1,0 +1,8 @@
+.notification-toast {
+  position: fixed;
+  top: 80px;
+  right: 24px;
+  z-index: 1055;
+  min-width: 280px;
+  margin: 0;
+}

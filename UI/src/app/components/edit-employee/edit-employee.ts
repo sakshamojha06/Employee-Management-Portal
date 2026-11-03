@@ -2,6 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EmployeeService } from '../../services/employee';
+import { NotificationService } from '../../services/notification';
 
 @Component({
   selector: 'app-edit-employee',
@@ -14,6 +15,7 @@ export class EditEmployee implements OnInit {
 
   private fb = inject(FormBuilder);
   private employeeService = inject(EmployeeService);
+  private notificationService = inject(NotificationService);
   private route = inject(ActivatedRoute);
   private router = inject(Router);
 
@@ -53,7 +55,7 @@ export class EditEmployee implements OnInit {
       this.employeeForm.value
     ).subscribe({
       next: () => {
-        alert('Employee updated successfully!');
+        this.notificationService.show('Employee updated successfully!', 'success');
         this.router.navigate(['/employees']);
       },
       error: (error) => {

@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { EmployeeService } from '../../services/employee';
+import { NotificationService } from '../../services/notification';
 
 @Component({
   selector: 'app-add-employee',
@@ -14,6 +15,7 @@ export class AddEmployee {
 
   private fb = inject(FormBuilder);
   private employeeService = inject(EmployeeService);
+  private notificationService = inject(NotificationService);
   router = inject(Router);
 
   employeeForm = this.fb.group({
@@ -29,7 +31,7 @@ export class AddEmployee {
 
     this.employeeService.addEmployee(this.employeeForm.value).subscribe({
       next: () => {
-        alert('Employee added successfully!');
+        this.notificationService.show('Employee added successfully!', 'success');
         this.router.navigate(['/employees']);
       },
       error: (error) => {

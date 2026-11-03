@@ -1,1 +1,17 @@
 <router-outlet></router-outlet>
+
+@if (notification.message()) {
+  <div
+    class="alert notification-toast shadow"
+    [class.alert-success]="notification.type() === 'success'"
+    [class.alert-danger]="notification.type() === 'danger'"
+    role="alert"
+  >
+    <i
+      class="bi me-2"
+      [class.bi-check-circle-fill]="notification.type() === 'success'"
+      [class.bi-exclamation-triangle-fill]="notification.type() === 'danger'"
+    ></i>
+    {{ notification.message() }}
+  </div>
+}
