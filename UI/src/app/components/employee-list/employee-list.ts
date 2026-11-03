@@ -1,6 +1,6 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { EmployeeService } from '../../services/employee';
+import { Employee, EmployeeService } from '../../services/employee';
 import { AuthService } from '../../services/auth';
 import { Navbar } from '../navbar/navbar';
 
@@ -15,8 +15,9 @@ export class EmployeeList implements OnInit {
 
   private employeeService = inject(EmployeeService);
   private authService = inject(AuthService);
+  private changeDetectorRef = inject(ChangeDetectorRef);
 
-  employees: any[] = [];
+  employees: Employee[] = [];
   isAdmin = false;
   errorMessage = '';
 
@@ -27,8 +28,9 @@ export class EmployeeList implements OnInit {
 
   loadEmployees(): void {
     this.employeeService.getAllEmployees().subscribe({
-      next: (response) => {
-        this.employees = response;
+      next: (response: Employee[]) => {
+        this.employees = [...response];
+        this.changeDetectorRef.detectChanges();
       },
       error: () => {
         this.errorMessage = 'Unable to load employees.';
