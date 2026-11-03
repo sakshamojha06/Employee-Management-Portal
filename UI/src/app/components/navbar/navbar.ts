@@ -10,10 +10,13 @@ import { AuthService } from '../../services/auth';
   styleUrl: './navbar.css'
 })
 export class Navbar {
+
   private authService = inject(AuthService);
   private router = inject(Router);
 
   user = this.authService.getUser();
+
+  isAdmin = this.authService.getRole() === 'Admin';
 
   logout(): void {
     this.authService.logout();
