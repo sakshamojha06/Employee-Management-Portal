@@ -1,1 +1,76 @@
-<p>register works!</p>
+<div class="container mt-5">
+  <div class="card shadow mx-auto" style="max-width: 450px;">
+    <div class="card-body p-4">
+
+      <h3 class="text-center mb-4">Create Account</h3>
+
+      @if (message) {
+        <div class="alert alert-success">{{ message }}</div>
+      }
+
+      @if (errorMessage) {
+        <div class="alert alert-danger">{{ errorMessage }}</div>
+      }
+
+      <form (ngSubmit)="register()" #registerForm="ngForm">
+
+        <div class="mb-3">
+          <label class="form-label">Full Name</label>
+          <input
+            type="text"
+            class="form-control"
+            name="fullName"
+            [(ngModel)]="fullName"
+            required>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Email</label>
+          <input
+            type="email"
+            class="form-control"
+            name="email"
+            [(ngModel)]="email"
+            [(ngModel)]="email"
+            required
+            email>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Password</label>
+          <input
+            type="password"
+            class="form-control"
+            name="password"
+            [(ngModel)]="password"
+            minlength="8"
+            required>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Confirm Password</label>
+          <input
+            type="password"
+            class="form-control"
+            name="confirmPassword"
+            [(ngModel)]="confirmPassword"
+            required>
+        </div>
+
+        <button
+          type="submit"
+          class="btn btn-success w-100"
+          [disabled]="registerForm.invalid || password !== confirmPassword">
+          Register
+        </button>
+
+      </form>
+
+      <p class="text-center mt-3 mb-0">
+        Already registered?
+        <a routerLink="/login">Login</a>
+      </p>
+
+    </div>
+  </div>
+</div>
