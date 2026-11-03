@@ -28,9 +28,29 @@ export class AuthService {
 
     logout(): void {
         localStorage.removeItem('token');
+        localStorage.removeItem('user');
     }
 
     isLoggedIn(): boolean {
         return !!this.getToken();
+    }
+
+    getRole(): string | null {
+        const user = localStorage.getItem('user');
+
+        if (!user) {
+            return null;
+        }
+
+        return JSON.parse(user).role;
+    }
+
+    saveUser(user: any): void {
+        localStorage.setItem('user', JSON.stringify(user));
+    }
+
+    getUser(): any {
+        const user = localStorage.getItem('user');
+        return user ? JSON.parse(user) : null;
     }
 }
